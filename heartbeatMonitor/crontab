@@ -1,0 +1,2 @@
+# copy Heartbeat.sh to /bin directory
+* * * * * /bin/bash /bin/Heartbeat.sh >> /home/atorman/Desktop/Heartbeat.log 2>&1

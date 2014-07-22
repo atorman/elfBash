@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Refresh page every 30 seconds-->
+
+    <meta http-equiv="refresh" content="30">
+    <!-- EXTERNAL LIBS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+
+    <!-- Count of events -->
+    <script>
+
+      // onload callback
+      function drawChart() {
+
+        <!-- change me with sparkfun api key -->
+        var public_key = 'MGGaxMzZWxFZYOaqJqZb';
+
+        // JSONP request
+        var jsonData = $.ajax({
+          url: 'https://data.sparkfun.com/output/' + public_key + '.json',
+          data: {page: 1},
+          dataType: 'jsonp',
+        }).done(function (results) {
+
+          var data = new google.visualization.DataTable();
+
+          data.addColumn('datetime', 'Time');
+          data.addColumn('number', 'Count');
+          //data.addColumn('number', 'Success');
+
+          $.each(results, function (i, row) {
+            data.addRow([
+              (new Date(row.timestamp)),
+              parseFloat(row.count),
+              //parseFloat(row.success)
+            ]);
+          });
+
+          var chart = new google.visualization.LineChart($('#count').get(0));
+
+          chart.draw(data, {
+            title: 'Login Events Count'
+          });
+
+        });
+
+      }
+
+      // load chart lib
+      google.load('visualization', '1', {
+        packages: ['corechart']
+      });
+
+      // call drawChart once google charts is loaded
+      google.setOnLoadCallback(drawChart);
+
+    </script>
+
+    <!-- Success of events -->
+    <script>
+
+      // onload callback
+      function drawChart() {
+
+        <!-- change me with sparkfun api key -->
+        var public_key = 'MGGaxMzZWxFZYOaqJqZb';
+
+        // JSONP request
+        var jsonData = $.ajax({
+          url: 'https://data.sparkfun.com/output/' + public_key + '.json',
+          data: {page: 1},
+          dataType: 'jsonp',
+        }).done(function (results) {
+
+          var data = new google.visualization.DataTable();
+
+          data.addColumn('datetime', 'Time');
+          data.addColumn('number', 'Success');
+
+          $.each(results, function (i, row) {
+            data.addRow([
+              (new Date(row.timestamp)),
+              parseFloat(row.success),
+            ]);
+          });
+
+          var chart = new google.visualization.LineChart($('#success').get(0));
+
+          chart.draw(data, {
+            title: 'Login Events Success'
+          });
+
+        });
+
+      }
+
+      // load chart lib
+      google.load('visualization', '1', {
+        packages: ['corechart']
+      });
+
+      // call drawChart once google charts is loaded
+      google.setOnLoadCallback(drawChart);
+
+    </script>
+
+  </head>
+  <body>
+    <h1>Heartbeat Dashboard</h1>
+    <div id="count" style="width: 100%;"></div><br/>
+    <div id="success" style="width: 100%;"></div><br/>
+
+  </body>
+</html>
