@@ -1,0 +1,120 @@
+<apex:page sidebar="false" controller="vfRequestTimeController">
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ELF Google Charting API Demo</title>
+    
+<!--JQuery Task Create Modified from https://developer.salesforce.com/page/Developing_Apps_with_jQuery-->
+    
+     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/> 
+     <script>
+       j$ = jQuery.noConflict();
+       j$(document).ready(function() {
+            j$('#createTask').submit(function() { 
+                alert('createTask called');
+                vfRequestTimeController.createTask(j$('#subject').val(),handleTaskCreate);
+            	});
+           });             
+
+      function handleTaskCreate(result,event) {
+             if(event.type == 'exception') {
+                  alert(event.message);
+              } else {
+                alert('A task was created with the ID: '+result);
+              }
+          }
+ 	</script>
+
+<!--Visualforce Graph-->
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Visualforce Page Name');
+        data.addColumn('number', 'Average Run Time (ms)');
+        data.addRows([
+          	['/apex/LeadWorld',44380.875],
+            ['/apex/OpptyLookup',41165],
+            ['/apex/AccountLookup',39306]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Long does it take to render pages',
+                       'width':1000,
+                       'is3D':true,
+                       'chartArea':{'top': 0, 'height':800},	
+                       'height':800};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+        // The select handler. Call the chart's getSelection() method
+          function selectHandler() {
+          var selectedItem = chart.getSelection()[0];
+          if (selectedItem) {
+            var value = data.getValue(selectedItem.row, selectedItem.column);
+              //print the selected value to the screen         
+            document.getElementById('jax').innerHTML = value;
+            var message = 'Fix your visualforce page, the render time in milliseconds is : ';
+              //set the subject value to the message + value
+            document.getElementById('subject').value = message + value;
+          }
+        }
+          
+        // Listen for the 'select' event, and call my function selectHandler() when
+        // the user selects something on the chart.
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+    <apex:pageBlock title="Visualforce Request Run Time (ms)" tabStyle="Account">
+        <font size='12'>
+            The Selected Chart Value is: <span id="jax"></span> 
+        </font>
+        <form id="createTask">
+            <input id="subject" 
+                   style="font-family:monospace; width:800px; height:20px; font-size:18px;"/>
+            <input type="submit" id="submit" value="Submit" />
+      	</form>
+        <br/>
+        <div id="chart_div"></div>
+  </apex:pageBlock>
+    
+  <apex:pageBlock title="Tasks" tabStyle="Account">
+  	<apex:pageBlockSection title="Tasks">
+        <apex:form >
+        <apex:commandLink value="Reset" id="reset" rerender="theTable"/>
+    <apex:dataTable value="{!tasks}" var="task" id="theTable" width="800" rowClasses="odd,even" styleClass="tableClass" border="2" columnsWidth="600px, 200px">
+        <apex:facet name="caption">Task List</apex:facet>
+        <apex:column >
+          <apex:facet name="header">Subject</apex:facet>
+          <apex:outputText value="{!task.Subject}"/>
+        </apex:column>
+        <apex:column >
+          <apex:facet name="header">CreatedDate</apex:facet>
+          <apex:outputText value="{!task.CreatedDate}"/>
+        </apex:column>
+  </apex:dataTable>
+  </apex:form>
+    </apex:pageBlockSection>
+  </apex:pageBlock>
+</body>
+</html>
+</apex:page>
