@@ -254,7 +254,7 @@ for i in `ls *.csv`; do
     eventName=`echo $i | sed 's/\.csv//g'`
     
     #comment next line to test before uploading to Wave
-    #java -jar datasetutils-32.0.0.jar --action load --u ${tUsername} --p ${tPassword} --inputFile ${eventFile} --dataset ${eventName}
+    java -jar datasetutils-32.0.0.jar --action load --u ${tUsername} --p ${tPassword} --inputFile ${eventFile} --dataset ${eventName}
 done
 
 #prompt user to clean up data and directories
