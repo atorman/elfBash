@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>vfRequestTimeController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>vfRequestTime</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Visualforce_Requests</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>VF_Request_Time</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>VisualforceRequests</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>30.0</version>
+</Package>
