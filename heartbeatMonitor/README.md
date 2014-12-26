@@ -24,6 +24,8 @@ My first prototype was done in about half an hour.
 * I created a google charting API report to visualize the data. This was the visualization part of the solution and entirely based on a [phant.io blog posting](http://phant.io/graphing/google/2014/07/07/graphing-data/).
 * I used a freemium SMS service called SendHub to handle the notifications. I originally used Twilio but needed a simpler, freemium option for the first iteration.
 
+![alt tag] (https://raw.githubusercontent.com/atorman/heartbeatMonitor/master/DIYArchitecture.png)
+
 Every minute, the CRON job would wake the bash shell script. The script would log into salesforce using the rest API, query a count of my new sobject, and if successful it would log a row to sparkfun which I viewed on their public page. If it failed, I would log another row to sparkfun with the error message. I then sent a SMS notification of the failure to my cell phone. To view a trend of successes and failures over time (which was useful to see what happened when I was away from my phone or asleep), I used my Google charting report.
 
 This DIY project highlights a simple case of real-time monitoring built very quickly and open to enhancements. 
