@@ -215,7 +215,7 @@ for i in "${!ids[@]}"; do
     mkdir "${eventTypes[$i]}"
 
     #download files into the ${eventTypes[$i]}-raw directory
-    curl "https://${instance}.salesforce.com/services/data/v32.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" 
+    curl --compressed "https://${instance}.salesforce.com/services/data/v32.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" 
 
     #convert files into the ${eventTypes[$i]} directory for Salesforce Analytics
     awk -F ','  '{ if(NR==1) printf("%s\n",$0); else{ for(i=1;i<=NF;i++) { if(i>1&& i<=NF) printf("%s",","); if(i == 2) printf "\"%s-%s-%sT%s:%s:%sZ\"", substr($2,2,4),substr($2,6,2),substr($2,8,2),substr($2,10,2),substr($2,12,2),substr($2,14,2); else printf ("%s",$i);  if(i==NF) printf("\n")}}}' "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" > "${eventTypes[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"

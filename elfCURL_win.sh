@@ -71,5 +71,5 @@ for i in "${!ids[@]}"; do
     mkdir "${logDates[$i]}"
 
     #download files into the logDate directory
-    curl "https://na1.salesforce.com/services/data/v32.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}.csv"
+    curl --compressed "https://na1.salesforce.com/services/data/v32.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}.csv"
 done 

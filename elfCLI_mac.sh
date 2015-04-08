@@ -54,5 +54,5 @@ for i in "${!ids[@]}"; do
     #echo "curl \"${instance_url}/services/data/v29.0/sobjects/EventLogFile/${ids[$i]}/LogFile\" -H \"Authorization: Bearer ${access_token}\" -H \"X-PrettyPrint:1\" -o \"${eventTypes[$i]}-${logDates[$i]}.csv\""
 
     #download files into the logDate directory
-    curl "${instance_url}/services/data/v29.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"
+    curl --compressed "${instance_url}/services/data/v29.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"
 done
