@@ -44,9 +44,14 @@ read -s -p "Please enter the Wave target org password (and press ENTER): " tPass
 #prompt the user to enter their username for the source (Event Monitoring) org
 read -p "Please enter username for Event Monitoring source org (and press ENTER): " username
 
-
 #prompt the user to enter their password for the source (Event Monitoring) org
 read -s -p "Please enter password for Event Monitoring source org (and press ENTER): " password
+
+#prompt the user to enter their clientid
+read -p "Please enter Salesforce connected app client id (and press ENTER): " client_id
+
+#prompt the user to enter their clientsecret
+read -s -p "Please enter Salesforce connected app client secret (and press ENTER): " client_secret
 
 #prompt the user to enter their instance end-point for the source (Event Monitoring) org
 echo 
@@ -186,7 +191,7 @@ echo ${eventType}
 
 #set access_token for OAuth flow 
 #change client_id and client_secret to your own connected app - bit.ly/sfdcConnApp
-access_token=`curl https://${instance}.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=3MVG99OxTyEMCQ3ilfR5dFvVjgTrCbM3xX8HCLLS4GN72CCY6q86tRzvtjzY.0.p5UIoXHN1R4Go3SjVPs0mx" -d "client_secret=7899378653052916471" -d "username=${username}" -d "password=${password}" -H "X-PrettyPrint:1" | jq -r '.access_token'`
+access_token=`curl https://${instance}.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=${client_id}" -d "client_secret=${client_secret}" -d "username=${username}" -d "password=${password}" -H "X-PrettyPrint:1" | jq -r '.access_token'`
 
 #uncomment next line if you want to check your access token
 #echo "Access token: ${access_token}"
