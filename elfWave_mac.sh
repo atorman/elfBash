@@ -305,15 +305,15 @@ esac
 
 
 #debug tool ---- uncomment to use the following defaults
- tUsername="admin@hpeapps.ey.demo"
- tPassword='Welcome1'
- username='admin@hpeapps.ey.demo'
- password='Welcome1'
- client_id='3MVG9p1Q1BCe9GmCHgejeShXeTTjEpI1hxvsiHvy3ymusgx4v7GA7dNuO5J.bsKfCCFarfAx5MBhJU0fJgtKI'
- client_secret='372EFFBD131F20EE4EEE3E88C5B72DE3410FC481DB06B3C19C32003AA1A6F6CE'
- instance='hpeappsdemo'
- day='Last_Week'
- eventType=${eventType:-All}
+ #tUsername="admin@hxxx.demo"
+ #tPassword='xxx'
+ #username='admin@xxxx.demo'
+ #password='xxx'
+ #client_id='xxxx'
+ #client_secret='xxxx'
+ #instance='xxxx'
+ #day='Last_Week'
+ #eventType=${eventType:-All}
 # end debug section-----
 
 echo ${eventType}
