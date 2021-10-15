@@ -55,7 +55,7 @@ read -s -p "Please enter Salesforce connected app client secret (and press ENTER
 
 #prompt the user to enter their instance end-point for the source (Event Monitoring) org
 echo 
-read -p "Please enter instance (e.g. na1) for the for Event Monitoring source org loginURL (and press ENTER): " instance
+read -p "Please enter the My Domain (e.g. <MYDOMAIN>.lightning.force.com (just the first part in <> §) for the for Event Monitoring source org loginURL (and press ENTER): " instance
 
 #prompt the user to enter the date for the logs they want to download for the source (Event Monitoring) org
 read -p "Please enter logdate (e.g. Yesterday, Last_Week, Last_n_Days:5) (and press ENTER): " day
@@ -65,52 +65,61 @@ printf 'What EventType do you want to download?\n'
 printf '1. All 48 event types (Default)\n'
 printf '2. ApexCallout\n'
 printf '3. ApexExecution\n'
-printf '4. ApexSoap\n'
-printf '5. ApexTrigger\n'
-printf '6. ApexUnexpectedException\n'
-printf '7. API\n'
-printf '8. AsynchronousReportRun\n'
-printf '9. BulkApi\n'
-printf '10. ChangeSetOperation\n'
-printf '11. ConcurrentLongRunningApexLimit\n'
-printf '12. Console\n'
-printf '13. ContentDistribution\n'
-printf '14. ContentDocumentLink\n'
-printf '15. ContentTransfer\n'
-printf '16. ContinuationCalloutSummary\n'
-printf '17. Dashboard\n'
-printf '18. DocumentAttachmentDownoads\n'
-printf '19. ExternalCrossOrgCallout\n'
-printf '20. ExternalCustomApexCallout\n'
-printf '21. ExternalODataCallout\n'
-printf '22. InsecureExternalAssets\n'
-printf '23. KnowledgeArticleView\n'
-printf '24. LightningError\n'
-printf '25. LightningInteraction\n'
-printf '26. LightningPageView\n'
-printf '27. LightningPerformance\n'
-printf '28. LoginAs\n'
-printf '29. Login\n'
-printf '30. Logout\n'
-printf '31. MetadataApiOperation\n'
-printf '32. MultiblockReport\n'
-printf '33. PackageInstall\n'
-printf '34. PlatformEncryption\n'
-printf '35. QueuedExecution\n'
-printf '36. Report\n'
-printf '37. ReportExport\n'
-printf '38. RestApi\n'
-printf '39. Sandbox\n'
-printf '40. SearchClick\n'
-printf '41. Search\n'
-printf '42. Sites\n'
-printf '43. TimeBasedWorkflow\n'
-printf '44. TransactionSecurity\n'
-printf '45. URI\n'
-printf '46. VisualforceRequest\n'
-printf '47. WaveChange\n'
-printf '48. WaveInteraction\n'
-printf '49. WavePerformance\n'
+printf '4. ApexREST\n'
+printf '5. ApexSoap\n'
+printf '6. ApexTrigger\n'
+printf '7. ApexUnexpectedException\n'
+printf '8. API\n'
+printf '9. API Total Usage\n'
+printf '10. AsynchronousReportRun\n'
+printf '11. Aura Request\n'
+printf '12. Bulk API 2.0\n'
+printf '13. BulkApi\n'
+printf '14. ChangeSetOperation\n'
+printf '15. ConcurrentLongRunningApexLimit\n'
+printf '16. Console\n'
+printf '17. ContentDistribution\n'
+printf '18. ContentDocumentLink\n'
+printf '19. ContentTransfer\n'
+printf '20. ContinuationCalloutSummary\n'
+printf '21. CORS Violation\n'
+printf '22. Dashboard\n'
+printf '23. DocumentAttachmentDownoads\n'
+printf '24. ExternalCrossOrgCallout\n'
+printf '25. ExternalCustomApexCallout\n'
+printf '26. ExternalODataCallout\n'
+printf '27. Flow Execution\n'
+printf '28. InsecureExternalAssets\n'
+printf '29. KnowledgeArticleView\n'
+printf '30. LightningError\n'
+printf '31. LightningInteraction\n'
+printf '32. LightningPageView\n'
+printf '33. LightningPerformance\n'
+printf '34. LoginAs\n'
+printf '35. Login\n'
+printf '36. Logout\n'
+printf '37. MetadataApiOperation\n'
+printf '38. MultiblockReport\n'
+printf '39. Named Credential\n'
+printf '40. One Commerce\n'
+printf '41. PackageInstall\n'
+printf '42. PlatformEncryption\n'
+printf '43. QueuedExecution\n'
+printf '44. Report\n'
+printf '45. ReportExport\n'
+printf '46. RestApi\n'
+printf '47. Sandbox\n'
+printf '48. SearchClick\n'
+printf '49. Search\n'
+printf '50. Sites\n'
+printf '51. TimeBasedWorkflow\n'
+printf '52. TransactionSecurity\n'
+printf '53. URI\n'
+printf '54. VisualforceRequest\n'
+printf '55. WaveChange\n'
+printf '56. WaveDownload\n'
+printf '57. WaveInteraction\n'
+printf '58. WavePerformance\n'
 
 read eventMenu
 
@@ -124,142 +133,169 @@ case $eventMenu in
      3)
           eventType=${eventType:-ApexExecution}
           ;; 
-     4)
+     4) 
+          eventType=${eventType:-ApexRestApi} ###
+          ;;     
+     5)
           eventType=${eventType:-ApexSoap}
           ;; 
-     5)
+     6)
           eventType=${eventType:-ApexTrigger}
           ;;      
-     6)
+     7)
           eventType=${eventType:-ApexUnexpectedException}
           ;; 
-     7)
+     8)
           eventType=${eventType:-API}
           ;; 
-     8)
-          eventType=${eventType:-AsynchronousReportRun}
-          ;; 
      9)
-          eventType=${eventType:-BulkApi}
+          eventType=${eventType:-ApiTotalUsage} ####
           ;; 
      10)
-          eventType=${eventType:-ChangeSetOperation}
+          eventType=${eventType:-AsynchronousReportRun}
           ;; 
      11)
-          eventType=${eventType:-ConcurrentLongRunningApexLimit}
+          eventType=${eventType:-AuraRequest} ###
           ;; 
      12)
-          eventType=${eventType:-Console}
+          eventType=${eventType:-BulkApi2} ###
           ;; 
      13)
-          eventType=${eventType:-ContentDistribution}
+          eventType=${eventType:-BulkApi}
           ;; 
      14)
-          eventType=${eventType:-ContentDocumentLink}
+          eventType=${eventType:-ChangeSetOperation}
           ;; 
      15)
-          eventType=${eventType:-ContentTransfer}
+          eventType=${eventType:-ConcurrentLongRunningApexLimit}
           ;; 
      16)
-          eventType=${eventType:-ContinuationCalloutSummary}
+          eventType=${eventType:-Console}
           ;; 
      17)
-          eventType=${eventType:-Dashboard}
+          eventType=${eventType:-ContentDistribution}
           ;; 
      18)
-          eventType=${eventType:-DocumentAttachmentDownoads}
+          eventType=${eventType:-ContentDocumentLink}
           ;; 
      19)
-          eventType=${eventType:-ExternalCrossOrgCallout}
+          eventType=${eventType:-ContentTransfer}
           ;; 
      20)
-          eventType=${eventType:-ExternalCustomApexCallout}
+          eventType=${eventType:-ContinuationCalloutSummary}
           ;; 
      21)
-          eventType=${eventType:-ExternalODataCallout}
+          eventType=${eventType:-CVR} ###
           ;; 
      22)
-          eventType=${eventType:-InsecureExternalAssets}
+          eventType=${eventType:-Dashboard}
           ;; 
      23)
-          eventType=${eventType:-KnowledgeArticleView}
+          eventType=${eventType:-DocumentAttachmentDownoads}
           ;; 
      24)
-          eventType=${eventType:-LightningError}
+          eventType=${eventType:-ExternalCrossOrgCallout}
           ;; 
      25)
-          eventType=${eventType:-LightningInteraction}
+          eventType=${eventType:-ExternalCustomApexCallout}
           ;; 
      26)
-          eventType=${eventType:-LightningPageView}
+          eventType=${eventType:-ExternalODataCallout}
           ;; 
      27)
-          eventType=${eventType:-LightningPerformance}
+          eventType=${eventType:-FlowExecution} ###
           ;; 
      28)
-          eventType=${eventType:-LoginAs}
+          eventType=${eventType:-InsecureExternalAssets}
           ;; 
      29)
-          eventType=${eventType:-Login}
+          eventType=${eventType:-KnowledgeArticleView}
           ;; 
      30)
-          eventType=${eventType:-Logout}
+          eventType=${eventType:-LightningError}
           ;; 
      31)
-          eventType=${eventType:-MetadataApiOperation}
+          eventType=${eventType:-LightningInteraction}
           ;; 
      32)
-          eventType=${eventType:-MultiblockReport}
+          eventType=${eventType:-LightningPageView}
           ;; 
      33)
-          eventType=${eventType:-PackageInstall}
+          eventType=${eventType:-LightningPerformance}
           ;; 
      34)
-          eventType=${eventType:-PlatformEncryption}
+          eventType=${eventType:-LoginAs}
           ;; 
      35)
-          eventType=${eventType:-QueuedExecution}
+          eventType=${eventType:-Login}
           ;; 
      36)
-          eventType=${eventType:-Report}
+          eventType=${eventType:-Logout}
           ;; 
      37)
-          eventType=${eventType:-ReportExport}
+          eventType=${eventType:-MetadataApiOperation}
           ;; 
      38)
-          eventType=${eventType:-RestApi}
+          eventType=${eventType:-MultiblockReport}
           ;; 
      39)
-          eventType=${eventType:-Sandbox}
+          eventType=${eventType:-NamedCredential} ###
           ;; 
      40)
-          eventType=${eventType:-SearchClick}
+          eventType=${eventType:-OneCommerceUsage} ###
           ;; 
      41)
-          eventType=${eventType:-Search}
+          eventType=${eventType:-PackageInstall}
           ;; 
      42)
-          eventType=${eventType:-Sites}
+          eventType=${eventType:-PlatformEncryption}
           ;; 
      43)
-          eventType=${eventType:-TimeBasedWorkflow}
+          eventType=${eventType:-QueuedExecution}
           ;; 
      44)
-          eventType=${eventType:-TransactionSecurity}
+          eventType=${eventType:-Report}
           ;; 
      45)
-          eventType=${eventType:-URI}
+          eventType=${eventType:-ReportExport}
           ;; 
      46)
-          eventType=${eventType:-VisualforceRequest}
+          eventType=${eventType:-RestApi}
           ;; 
      47)
-          eventType=${eventType:-WaveChange}
+          eventType=${eventType:-Sandbox}
           ;; 
      48)
-          eventType=${eventType:-WaveInteraction}
+          eventType=${eventType:-SearchClick}
           ;; 
      49)
+          eventType=${eventType:-Search}
+          ;; 
+     50)
+          eventType=${eventType:-Sites}
+          ;; 
+     51)
+          eventType=${eventType:-TimeBasedWorkflow}
+          ;; 
+     52)
+          eventType=${eventType:-TransactionSecurity}
+          ;; 
+     53)
+          eventType=${eventType:-URI}
+          ;; 
+     54)
+          eventType=${eventType:-VisualforceRequest}
+          ;; 
+     55)
+          eventType=${eventType:-WaveChange}
+          ;; 
+     56)
+          eventType=${eventType:-WaveDownload}####
+          ;; 
+     57)
+          eventType=${eventType:-WaveInteraction}
+          ;; 
+     58)
           eventType=${eventType:-WavePerformance}
           ;; 
      *)
@@ -267,11 +303,33 @@ case $eventMenu in
           ;;
 esac
 
+
+#debug tool ---- uncomment to use the following defaults
+ tUsername="admin@hpeapps.ey.demo"
+ tPassword='Welcome1'
+ username='admin@hpeapps.ey.demo'
+ password='Welcome1'
+ client_id='3MVG9p1Q1BCe9GmCHgejeShXeTTjEpI1hxvsiHvy3ymusgx4v7GA7dNuO5J.bsKfCCFarfAx5MBhJU0fJgtKI'
+ client_secret='372EFFBD131F20EE4EEE3E88C5B72DE3410FC481DB06B3C19C32003AA1A6F6CE'
+ instance='hpeappsdemo'
+ day='Last_Week'
+ eventType=${eventType:-All}
+# end debug section-----
+
 echo ${eventType}
+
 
 #set access_token for OAuth flow 
 #change client_id and client_secret to your own connected app - bit.ly/sfdcConnApp
-access_token=`curl https://${instance}.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=${client_id}" -d "client_secret=${client_secret}" -d "username=${username}" -d "password=${password}" -H "X-PrettyPrint:1" | jq -r '.access_token'`
+
+response=`curl https://login.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=${client_id}" -d "client_secret=${client_secret}" -d "username=${username}" -d "password=${password}" -H "X-PrettyPrint:1"`
+#echo ${response}
+
+access_token=`echo ${response} | jq -r '.access_token'`
+#echo ${access_token}
+
+instance_url=`echo ${response} | jq -r '.instance_url'`
+#echo ${instance_url}
 
 #uncomment next line if you want to check your access token
 #echo "Access token: ${access_token}"
@@ -279,17 +337,28 @@ access_token=`curl https://${instance}.salesforce.com/services/oauth2/token -d "
 if [ $eventType == All ]; then
 
     #set elfs to the result of ELF query *without* EventType in query
-    elfs=`curl https://${instance}.salesforce.com/services/data/v46.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
+    elfs=`curl ${instance_url}/services/data/v48.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
 
 else
     #set elfs to the result of ELF query *with* EventType in query
-    elfs=`curl https://${instance}.salesforce.com/services/data/v46.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day}+AND+EventType+=+\'${eventType}\' -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
+    elfs=`curl ${instance_url}/services/data/v48.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day}+AND+EventType+=+\'${eventType}\' -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
+  
 fi
+
+
+#echo $elfs
 
 #set the three variables to the array of Ids, EventTypes, and LogDates which will be used when downloading the files into your local directory
 ids=( $(echo ${elfs} | jq -r ".records[].Id") )
 eventTypes=( $(echo ${elfs} | jq -r ".records[].EventType" ) )
 logDates=( $(echo ${elfs} | jq -r ".records[].LogDate" | sed 's/'T.*'//' ) )
+
+
+
+
+#echo Ids: ${ids}
+#echo "eventTypes: ${eventTypes}"
+#echo "logDates: ${logDates}"
 
 #loop through the array of results and download each file with the following naming convention: EventType.csv
 for i in "${!ids[@]}"; do
@@ -298,9 +367,10 @@ for i in "${!ids[@]}"; do
     #converted timezone data
     mkdir "${eventTypes[$i]}-raw"
     mkdir "${eventTypes[$i]}"
+ 
 
     #download files into the ${eventTypes[$i]}-raw directory
-    curl --compressed "https://${instance}.salesforce.com/services/data/v46.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" 
+    curl --compressed "${instance_url}/services/data/v48.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" 
 
     #convert files into the ${eventTypes[$i]} directory for Salesforce Analytics
     awk -F ','  '{ if(NR==1) printf("%s\n",$0); else{ for(i=1;i<=NF;i++) { if(i>1&& i<=NF) printf("%s",","); if(i == 2) printf "\"%s-%s-%sT%s:%s:%sZ\"", substr($2,2,4),substr($2,6,2),substr($2,8,2),substr($2,10,2),substr($2,12,2),substr($2,14,2); else printf ("%s",$i);  if(i==NF) printf("\n")}}}' "${eventTypes[$i]}-raw/${eventTypes[$i]}-${logDates[$i]}.csv" > "${eventTypes[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"
@@ -339,7 +409,7 @@ for i in `ls *.csv`; do
     eventName=`echo $i | sed 's/\.csv//g'`
     
     #comment next line to test before uploading to Wave
-    java -jar datasetutils-32.0.0.jar --action load --u ${tUsername} --p ${tPassword} --inputFile ${eventFile} --dataset ${eventName}
+    java -jar datasetutils-48.1.0.jar --action load --u ${tUsername} --p ${tPassword} --inputFile ${eventFile} --dataset ${eventName}
 done
 
 #prompt user to clean up data and directories

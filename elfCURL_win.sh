@@ -49,7 +49,7 @@ read -s -p "Please enter Salesforce connected app client secret (and press ENTER
 
 #prompt the user to enter their instance end-point 
 echo 
-read -p "Please enter instance (e.g. emea) for the loginURL (and press ENTER): " instance
+read -p "Please enter instance (e.g. na1, na2) for the loginURL (and press ENTER): " instance
 
 #prompt the user to enter the date for the logs they want to download
 read -p "Please enter logdate (e.g. Yesterday, Last_Week, Last_n_Days:5) (and press ENTER): " day
@@ -58,7 +58,7 @@ read -p "Please enter logdate (e.g. Yesterday, Last_Week, Last_n_Days:5) (and pr
 access_token=`curl https://${instance}.salesforce.com/services/oauth2/token -d "grant_type=password" -d "client_id=${client_id}" -d "client_secret=${client_secret}" -d "username=${username}" -d "password=${password}" -H "X-PrettyPrint:1" | jq -r '.access_token'`
 
 #set elfs to the result of ELF query
-elfs=`curl https://${instance}.salesforce.com/services/data/v32.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1"`
+elfs=`curl https://${instance}.salesforce.com/services/data/v48.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1"`
 
 #set the three variables to the array of Ids, EventTypes, and LogDates which will be used when downloading the files into your directory
 ids=( $(echo ${elfs} | ./jq -r ".records[].Id" | sed 's/[ \t]*$//') )
@@ -77,5 +77,5 @@ for i in "${!ids[@]}"; do
     mkdir "${logDates[$i]}"
 
     #download files into the logDate directory
-    curl --compressed "https://na1.salesforce.com/services/data/v32.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}.csv"
+    curl --compressed "https://${instance}.salesforce.com/services/data/v48.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H 'Authorization: Bearer {AccessToken}' -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}.csv"
 done 
