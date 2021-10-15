@@ -1,7 +1,7 @@
 #!/bin/bash
 # Bash script to download EventLogFiles
 
-# Pre-requisite: download jq - http://stedolan.github.io/jq/ to parse JSON
+# Pre-requisite: download jq - http://stedolan.github.io/jq/ to parse JSON - brew install jq
 # Pre-requisite: download force CLI - https://force-cli.heroku.com/
 
 #login through OAuth flow to CLI
@@ -26,7 +26,7 @@ day=${day:-Yesterday}
 #echo ${day}
 
 #set elfs to the result of ELF query
-elfs=`curl ${instance_url}/services/data/v29.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
+elfs=`curl ${instance_url}/services/data/v48.0/query?q=Select+Id+,+EventType+,+LogDate+From+EventLogFile+Where+LogDate+=+${day} -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1"`
 
 #uncomment next line if you want to see the result of elfs
 #echo ${elfs}
@@ -54,5 +54,5 @@ for i in "${!ids[@]}"; do
     #echo "curl \"${instance_url}/services/data/v29.0/sobjects/EventLogFile/${ids[$i]}/LogFile\" -H \"Authorization: Bearer ${access_token}\" -H \"X-PrettyPrint:1\" -o \"${eventTypes[$i]}-${logDates[$i]}.csv\""
 
     #download files into the logDate directory
-    curl --compressed "${instance_url}/services/data/v29.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"
+    curl --compressed "${instance_url}/services/data/v48.0/sobjects/EventLogFile/${ids[$i]}/LogFile" -H "Authorization: Bearer ${access_token}" -H "X-PrettyPrint:1" -o "${logDates[$i]}/${eventTypes[$i]}-${logDates[$i]}.csv"
 done
